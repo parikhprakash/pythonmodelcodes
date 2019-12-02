@@ -1,0 +1,52 @@
+# coding: utf-8
+
+# In[ ]:
+
+import sys
+import numpy as np
+import pandas as pd
+import csv
+import pickle
+
+
+# reading attribute file as a dictionary
+with open(sys.argv[1], mode='r') as infile:
+    reader = csv.reader(infile)
+    with open(sys.argv[1] + '_Dummy.csv', mode='w') as outfile:
+        writer = csv.writer(outfile)
+        attr_dict = {rows[0]:rows[1] for rows in reader}
+
+# reading variable list file into a list
+with open(attr_dict['VariableList'], 'r') as f:
+    reader = csv.reader(f)
+    variable_list = list(reader)
+
+variable_list = variable_list[0]
+
+
+# loading the imputer, scaler, pca nd xgboost model
+imputer = pickle.load(open(attr_dict['Imputer'], "rb"))
+scaler = pickle.load(open(attr_dict['Scaler'], "rb"))
+pca = pickle.load(open(attr_dict['PCA'], "rb"))
+
+model = pickle.load(open(attr_dict['Model'], "rb"))
+
+
+#scoring the data
+data_to_score = pd.read_csv(attr_dict['RolledUpData'])
+
+prediction =  model.predict(pca.transform(scaler.transform(imputer.transform(data_to_score[variable_list]))))
+prediction = prediction/100
+
+boundaries = [0] + list(np.arange(0.06, 0.301, 0.005)) + [0.31, 0.32, 0.33, 0.34, 0.35, np.inf]
+bucket = pd.cut(list(prediction), boundaries).astype(str)[0]
+
+with open(attr_dict['ActualP50'], mode='r') as infile:
+    reader = csv.reader(infile)
+    with open(attr_dict['ActualP50'] + '_Dummy.csv', mode='w') as outfile:
+        writer = csv.writer(outfile)
+        predicted_buckets = {rows[0]:rows[1] for rows in reader}
+
+Actual_P50 = predicted_buckets[bucket]
+print(Actual_P50)
+

@@ -1,0 +1,8 @@
+File,Path
+Imputer,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\Imputer_v2.dat
+Scaler,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\Scaler_v2.dat
+PCA,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\PCA_v2.dat
+Model,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\XGBoostModel_Run_16.dat
+VariableList,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\Variable_List.csv
+RolledUpData,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\Data_To_Score.csv
+ActualP50,C:\\Users\\smaran137932\\Documents\\Pricing Project\\Tech Team\\PredictedPriceBuckets.csv

@@ -1,0 +1,8 @@
+import pickle
+import pandas as pd
+
+# Load the model by specifying the path
+loaded_model = pickle.load(open("path_to_model", "rb"))
+
+# rolled_up_data should be a pandas dataframe with all the required variables, the model score is stored in prediction 
+prediction =  loaded_model.predict(rolled_up_data[loaded_model.get_booster().feature_names])
