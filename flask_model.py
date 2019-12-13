@@ -106,7 +106,10 @@ def api_preidct():
     # print(df.head())
     # return jsonify({'status':'OK'})
     # urn jsonify(pd.DataFrame(predict(df))
-    return jsonify(pd.DataFrame(predict(df)).T.to_dict())
+    predictions = predict(df)
+    str_predictions = [str(i) for i in predictions]
+    return dict(zip(range(50),str_predictions))
+    # return jsonify(dict(zip(range(50),predict(df))))
 
 # print(len(df.columns))
 # print(predict(df))
