@@ -107,7 +107,15 @@ def api_preidct():
     # return jsonify({'status':'OK'})
     # urn jsonify(pd.DataFrame(predict(df))
     predictions = predict(df)
-    str_predictions = [str(i) for i in predictions]
+    bins = [-0.001,0.06,0.065,0.07,0.075,0.08,0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12,0.125,0.13,0.135,0.14,0.145,0.15,0.155,0.16,0.165,0.17,0.175,0.18,0.185,0.19,0.195,0.2,0.205,0.21,0.215,0.22,0.225,0.23,0.235,0.24,0.245,0.25,0.255,0.26,0.265,0.27,0.275,0.28,0.29,0.295,0.3,0.31,0.32,0.33,0.34,0.35,100]
+    labels = ['0.0595','0.0627','0.0676','0.0712','0.0775','0.0816','0.0879','0.0943','0.1005','0.1053','0.1102','0.1155','0.1212','0.126','0.1301','0.1363','0.1415','0.1466','0.15','0.1568','0.16085','0.1649','0.171','0.1788','0.1869','0.1968','0.2009','0.2114','0.2217','0.2317','0.2394','0.2426','0.2482','0.2545','0.2616','0.2679','0.2787','0.288','0.29225','0.2958','0.2991','0.3047','0.3078','0.3082','0.3091','0.316','0.31735','0.3178','0.3189','0.31915','0.3203','0.3249','0.3488','0.6789']
+    predictions = [i/100.0 for i in predictions]
+    # df_out = pd.DataFrame(predictions)
+    # pd.cut(df_out[0],bins=bins,labels=labels,duplicates='drop')
+    # print(df_out[0].head())
+    # print(pd.cut(pd.DataFrame(predictions)[0],bins=bins,labels=labels,precision=5).head())
+    actual_50_output = pd.cut(pd.DataFrame(predictions)[0],bins=bins,labels=labels,precision=5,duplicates='drop')
+    str_predictions = [str(i) for i in actual_50_output.values]
     return dict(zip(range(50),str_predictions))
     # return jsonify(dict(zip(range(50),predict(df))))
 
