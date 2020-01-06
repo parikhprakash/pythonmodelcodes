@@ -72,7 +72,7 @@ def get_pca_transformation(df_scaled_data):
             temp_col_names.append(transformation_type + '_' + str(i))
 
         arr_transformed_df.append(pd.DataFrame(transformed_df,columns=temp_col_names))
-        pd.DataFrame(transformed_df,columns=temp_col_names).to_csv(transformation_type+'_out.csv')
+        # pd.DataFrame(transformed_df,columns=temp_col_names).to_csv(transformation_type+'_out.csv')
     return pd.concat(arr_transformed_df,axis=1)
 
     
@@ -84,10 +84,10 @@ def preprocess(df,obj_imputer,obj_scaler,):
         df_model_data[col] = pd.to_numeric(df_model_data[col],errors='ignore')
     # print(type(df_model_data))
     imputed_df_model_data = pd.DataFrame(obj_imputer.transform(df_model_data),columns=variable_list)
-    imputed_df_model_data.to_csv('Imputed_out.csv')
+    # imputed_df_model_data.to_csv('Imputed_out.csv')
     # print(type(imputed_df_model_data))
     scaled_df_model_data = pd.DataFrame(obj_scaler.transform(imputed_df_model_data),columns=variable_list)
-    scaled_df_model_data.to_csv('Scaled_out.csv')
+    # scaled_df_model_data.to_csv('Scaled_out.csv')
     # component_df_model_data = obj_pca.transform(scaled_df_model_data)
     return scaled_df_model_data,get_pca_transformation(scaled_df_model_data)
 
