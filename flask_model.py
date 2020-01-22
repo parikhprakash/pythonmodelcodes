@@ -120,7 +120,7 @@ def api_preidct():
     # print(pd.cut(pd.DataFrame(predictions)[0],bins=bins,labels=labels,precision=5).head())
     actual_50_output = pd.cut(pd.DataFrame(predictions)[0],bins=bins,labels=labels,precision=5,duplicates='drop')
     str_predictions = [str(i) for i in actual_50_output.values]
-    return dict(zip(range(50),str_predictions))
+    return dict(zip(list(df['ApplicationBorrowerEventSK']),str_predictions))
     # return jsonify(dict(zip(range(50),predict(df))))
 
 # print(len(df.columns))
